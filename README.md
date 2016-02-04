@@ -1,2 +1,2 @@
 # golang-common
-Common Golang library for my projects
+Golang common library
