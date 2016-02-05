@@ -11,7 +11,7 @@ const (
 )
 
 var (
-	CachePrefix   = "esec"
+	CachePrefix   = "default"
 	ErrCacheMiss  = errors.New("cache: key not found.")
 	ErrNotStored  = errors.New("cache: not stored.")
 	ErrNotSupport = errors.New("cache: not support.")
