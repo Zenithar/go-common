@@ -25,5 +25,10 @@ func ConvertSortParameters(params api.SortParameters) []interface{} {
 		}
 	}
 
+	// Apply default sort
+	if len(sorts) == 0 {
+		sorts = append(sorts, r.Asc("id"))
+	}
+
 	return sorts
 }
