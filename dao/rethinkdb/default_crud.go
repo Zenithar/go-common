@@ -46,6 +46,9 @@ func (d *Default) GetSession() interface{} {
 func (d *Default) Insert(data interface{}) error {
 	_, err := r.Table(d.table).Insert(data).RunWrite(d.session)
 	if err != nil {
+		if err == r.ErrEmptyResult {
+			return api.ErrNoResult
+		}
 		return api.NewDatabaseError(d, err, "")
 	}
 
@@ -56,6 +59,9 @@ func (d *Default) Insert(data interface{}) error {
 func (d *Default) InsertOrUpdate(id interface{}, data interface{}) error {
 	_, err := r.Table(d.table).Insert(data, r.InsertOpts{Conflict: "update"}).RunWrite(d.session)
 	if err != nil {
+		if err == r.ErrEmptyResult {
+			return api.ErrNoResult
+		}
 		return api.NewDatabaseError(d, err, "")
 	}
 
@@ -70,6 +76,9 @@ func (d *Default) Find(id interface{}, value interface{}) error {
 	}
 
 	if err := cursor.One(value); err != nil {
+		if err == r.ErrEmptyResult {
+			return api.ErrNoResult
+		}
 		return api.NewDatabaseError(d, err, "")
 	}
 
@@ -85,6 +94,9 @@ func (d *Default) FindOneBy(key string, value interface{}, result interface{}) e
 	}
 
 	if err := cursor.One(result); err != nil {
+		if err == r.ErrEmptyResult {
+			return api.ErrNoResult
+		}
 		return api.NewDatabaseError(d, err, "")
 	}
 
@@ -103,6 +115,9 @@ func (d *Default) FindBy(key string, value interface{}, results interface{}) err
 	}
 
 	if err := cursor.All(results); err != nil {
+		if err == r.ErrEmptyResult {
+			return api.ErrNoResult
+		}
 		return api.NewDatabaseError(d, err, "")
 	}
 
@@ -120,6 +135,9 @@ func (d *Default) FindByAndCount(key string, value interface{}) (int, error) {
 
 	var count int
 	if err := cursor.One(&count); err != nil {
+		if err == r.ErrEmptyResult {
+			return 0, api.ErrNoResult
+		}
 		return 0, api.NewDatabaseError(d, err, "")
 	}
 
@@ -134,6 +152,9 @@ func (d *Default) Where(filter map[string]interface{}, results interface{}) erro
 	}
 
 	if err := cursor.All(results); err != nil {
+		if err == r.ErrEmptyResult {
+			return api.ErrNoResult
+		}
 		return api.NewDatabaseError(d, err, "")
 	}
 
@@ -149,6 +170,9 @@ func (d *Default) WhereCount(filter map[string]interface{}) (int, error) {
 
 	var count int
 	if err := cursor.One(&count); err != nil {
+		if err == r.ErrEmptyResult {
+			return 0, api.ErrNoResult
+		}
 		return 0, api.NewDatabaseError(d, err, "")
 	}
 
@@ -163,6 +187,9 @@ func (d *Default) WhereAndFetchOne(filter map[string]interface{}, result interfa
 	}
 
 	if err := cursor.One(result); err != nil {
+		if err == r.ErrEmptyResult {
+			return api.ErrNoResult
+		}
 		return api.NewDatabaseError(d, err, "")
 	}
 
@@ -177,6 +204,9 @@ func (d *Default) WhereAndFetchLimit(filter map[string]interface{}, paginator *a
 	}
 
 	if err := cursor.All(results); err != nil {
+		if err == r.ErrEmptyResult {
+			return api.ErrNoResult
+		}
 		return api.NewDatabaseError(d, err, "")
 	}
 
@@ -187,6 +217,9 @@ func (d *Default) WhereAndFetchLimit(filter map[string]interface{}, paginator *a
 func (d *Default) Update(selector interface{}, data interface{}) error {
 	_, err := r.Table(d.table).Filter(selector).Update(data).RunWrite(d.session)
 	if err != nil {
+		if err == r.ErrEmptyResult {
+			return api.ErrNoResult
+		}
 		return api.NewDatabaseError(d, err, "")
 	}
 
@@ -197,6 +230,9 @@ func (d *Default) Update(selector interface{}, data interface{}) error {
 func (d *Default) UpdateID(id interface{}, data interface{}) error {
 	_, err := r.Table(d.table).Get(id).Update(data).RunWrite(d.session)
 	if err != nil {
+		if err == r.ErrEmptyResult {
+			return api.ErrNoResult
+		}
 		return api.NewDatabaseError(d, err, "")
 	}
 
@@ -207,6 +243,9 @@ func (d *Default) UpdateID(id interface{}, data interface{}) error {
 func (d *Default) DeleteAll(pred interface{}) error {
 	_, err := r.Table(d.table).Filter(pred).Delete().RunWrite(d.session)
 	if err != nil {
+		if err == r.ErrEmptyResult {
+			return api.ErrNoResult
+		}
 		return api.NewDatabaseError(d, err, "")
 	}
 
@@ -217,6 +256,9 @@ func (d *Default) DeleteAll(pred interface{}) error {
 func (d *Default) Delete(id interface{}) error {
 	_, err := r.Table(d.table).Get(id).Delete().RunWrite(d.session)
 	if err != nil {
+		if err == r.ErrEmptyResult {
+			return api.ErrNoResult
+		}
 		return api.NewDatabaseError(d, err, "")
 	}
 
@@ -256,6 +298,9 @@ func (d *Default) Search(results interface{}, filter map[string]interface{}, sor
 	// Fetch cursor
 	err = cursor.All(results)
 	if err != nil {
+		if err == r.ErrEmptyResult {
+			return api.ErrNoResult
+		}
 		return err
 	}
 
