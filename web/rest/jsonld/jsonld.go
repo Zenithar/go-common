@@ -30,6 +30,7 @@ type CollectionResource struct {
 
 	TotalItems   uint   `json:"totalItems"`
 	ItemPerPage  uint   `json:"itemPerPage,omitempty"`
+	CurrentPage  uint   `json:"currentPage,omitempty"`
 	FirstPage    string `json:"firstPage,omitempty"`
 	NextPage     string `json:"nextPage,omitempty"`
 	PreviousPage string `json:"previousPage,omitempty"`
@@ -55,6 +56,7 @@ func (j *CollectionResource) SetPaginator(r *http.Request, paginator *api.Pagina
 	if paginator.HasOtherPages() {
 		j.Type = "PagedCollection"
 		j.ItemPerPage = paginator.PerPage
+		j.CurrentPage = paginator.Page
 	}
 
 	q := r.URL.Query()
