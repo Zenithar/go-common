@@ -3,8 +3,11 @@ package middleware
 import (
 	"net/http"
 
+	"goji.io"
+
+	"golang.org/x/net/context"
+
 	"github.com/unrolled/render"
-	"github.com/zenazn/goji/web"
 )
 
 var rend *render.Render
@@ -17,10 +20,10 @@ func init() {
 }
 
 // RenderMiddleware is used to expose render template to request
-func RenderMiddleware(c *web.C, h http.Handler) http.Handler {
-	fn := func(w http.ResponseWriter, r *http.Request) {
-		c.Env["render"] = rend
-		h.ServeHTTP(w, r)
+func RenderMiddleware(h goji.Handler) goji.Handler {
+	fn := func(ctx context.Context, w http.ResponseWriter, r *http.Request) {
+		ctx = context.WithValue(ctx, "render", rend)
+		h.ServeHTTPC(ctx, w, r)
 	}
-	return http.HandlerFunc(fn)
+	return goji.HandlerFunc(fn)
 }

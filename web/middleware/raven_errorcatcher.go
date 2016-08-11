@@ -8,8 +8,6 @@ import (
 	// "strings"
 	"runtime"
 
-	"github.com/zenazn/goji/web"
-
 	"github.com/getsentry/raven-go"
 )
 
@@ -21,8 +19,8 @@ Middleware that catches panics, and:
 You can also use ThrowError() to raise an error that this middleware will catch, for example
 if you want an error to be reported to sentry
 */
-func BuildErrorCatcher(sentryClient *raven.Client) func(c *web.C, h http.Handler) http.Handler {
-	return func(c *web.C, h http.Handler) http.Handler {
+func BuildErrorCatcher(sentryClient *raven.Client) func(h http.Handler) http.Handler {
+	return func(h http.Handler) http.Handler {
 		handler := func(w http.ResponseWriter, r *http.Request) {
 
 			defer func() {

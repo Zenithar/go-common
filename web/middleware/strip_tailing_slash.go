@@ -1,13 +1,9 @@
 package middleware
 
-import (
-	"net/http"
+import "net/http"
 
-	"github.com/zenazn/goji/web"
-)
-
-func stripTrailingSlashMiddleware() func(c *web.C, next http.Handler) http.Handler {
-	return func(c *web.C, next http.Handler) http.Handler {
+func stripTrailingSlashMiddleware() func(next http.Handler) http.Handler {
+	return func(next http.Handler) http.Handler {
 		fn := func(w http.ResponseWriter, r *http.Request) {
 			path := r.URL.Path
 			l := len(path)
