@@ -248,7 +248,7 @@ func (d *Default) FindByAndFetch(key string, value interface{}, results interfac
 }
 
 // WhereCount allows counting with multiple fields
-func (d *Default) WhereCount(filter map[string]interface{}) (int, error) {
+func (d *Default) WhereCount(filter interface{}) (int, error) {
 	session := d.session.Clone()
 	defer session.Close()
 
@@ -264,7 +264,7 @@ func (d *Default) WhereCount(filter map[string]interface{}) (int, error) {
 }
 
 // Where allows filtering with multiple fields
-func (d *Default) Where(filter map[string]interface{}, results interface{}) error {
+func (d *Default) Where(filter interface{}, results interface{}) error {
 	session := d.session.Clone()
 	defer session.Close()
 
@@ -280,7 +280,7 @@ func (d *Default) Where(filter map[string]interface{}, results interface{}) erro
 }
 
 // WhereAndFetch filters with multiple fields and then fills results with all found resources
-func (d *Default) WhereAndFetch(filter map[string]interface{}, results interface{}) error {
+func (d *Default) WhereAndFetch(filter interface{}, results interface{}) error {
 	session := d.session.Clone()
 	defer session.Close()
 
@@ -296,7 +296,7 @@ func (d *Default) WhereAndFetch(filter map[string]interface{}, results interface
 }
 
 // WhereAndFetchLimit filters with multiple fields and then fills results with all found resources
-func (d *Default) WhereAndFetchLimit(filter map[string]interface{}, paginator *api.Pagination, results interface{}) error {
+func (d *Default) WhereAndFetchLimit(filter interface{}, paginator *api.Pagination, results interface{}) error {
 	session := d.session.Clone()
 	defer session.Close()
 
@@ -312,7 +312,7 @@ func (d *Default) WhereAndFetchLimit(filter map[string]interface{}, paginator *a
 }
 
 // WhereAndFetchOne filters with multiple fields and then fills result with the first found resource
-func (d *Default) WhereAndFetchOne(filter map[string]interface{}, result interface{}) error {
+func (d *Default) WhereAndFetchOne(filter interface{}, result interface{}) error {
 	session := d.session.Clone()
 	defer session.Close()
 
@@ -333,7 +333,7 @@ func (d *Default) List(results interface{}, sortParams *api.SortParameters, pagi
 }
 
 // Search all entities from the database
-func (d *Default) Search(results interface{}, filter map[string]interface{}, sortParams *api.SortParameters, pagination *api.Pagination) error {
+func (d *Default) Search(results interface{}, filter interface{}, sortParams *api.SortParameters, pagination *api.Pagination) error {
 	session := d.session.Clone()
 	defer session.Close()
 

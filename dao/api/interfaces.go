@@ -21,13 +21,13 @@ type EntityReader interface {
 	FindBy(key string, value interface{}, results interface{}) error
 	FindByAndCount(key string, value interface{}) (int, error)
 
-	Where(filter map[string]interface{}, results interface{}) error
-	WhereCount(filter map[string]interface{}) (int, error)
-	WhereAndFetchOne(filter map[string]interface{}, result interface{}) error
-	WhereAndFetchLimit(filter map[string]interface{}, paginator *Pagination, results interface{}) error
+	Where(filter interface{}, results interface{}) error
+	WhereCount(filter interface{}) (int, error)
+	WhereAndFetchOne(filter interface{}, result interface{}) error
+	WhereAndFetchLimit(filter interface{}, paginator *Pagination, results interface{}) error
 
 	List(results interface{}, sortParams *SortParameters, pagination *Pagination) error
-	Search(results interface{}, filter map[string]interface{}, sortParams *SortParameters, pagination *Pagination) error
+	Search(results interface{}, filter interface{}, sortParams *SortParameters, pagination *Pagination) error
 }
 
 // EntityUpdater allows updating existing resources in the database
