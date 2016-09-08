@@ -342,6 +342,16 @@ func (d *Default) Search(results interface{}, filter interface{}, sortParams *ap
 		filter = bson.M{}
 	}
 
+	// Get total
+	if pagination != nil {
+		total, err := d.WhereCount(filter)
+		if err != nil {
+			return api.NewDatabaseError(d, err, "")
+		}
+		pagination.SetTotal(uint(total))
+	}
+
+	// Prepare the query
 	query := session.DB(d.GetDBName()).C(d.GetTableName()).Find(filter)
 
 	// Apply sorts

@@ -277,6 +277,15 @@ func (d *Default) Search(results interface{}, filter interface{}, sortParams *ap
 		term = term.Filter(filter)
 	}
 
+	// Get total
+	if pagination != nil {
+		total, err := d.WhereCount(filter)
+		if err != nil {
+			return api.NewDatabaseError(d, err, "")
+		}
+		pagination.SetTotal(uint(total))
+	}
+
 	// Sort
 	if sortParams != nil {
 		term = term.OrderBy(ConvertSortParameters(*sortParams)...)
