@@ -3,20 +3,19 @@ package middleware
 import (
 	"net/http"
 
-	"goji.io"
-
 	"golang.org/x/net/context"
 )
 
 // XRequestID is a goji middleware to track requestID
-func XRequestID(h goji.Handler) goji.Handler {
-	fn := func(ctx context.Context, w http.ResponseWriter, r *http.Request) {
+func XRequestID(h http.Handler) http.Handler {
+	fn := func(w http.ResponseWriter, r *http.Request) {
 		if len(r.Header.Get("X-Request-ID")) > 0 {
-			ctx = context.WithValue(ctx, "reqID", r.Header.Get("X-Request-ID"))
+			ctx := context.WithValue(r.Context(), "reqID", r.Header.Get("X-Request-ID"))
+			h.ServeHTTP(w, r.WithContext(ctx))
+		} else {
+			h.ServeHTTP(w, r)
 		}
-
-		h.ServeHTTPC(ctx, w, r)
 	}
 
-	return goji.HandlerFunc(fn)
+	return http.HandlerFunc(fn)
 }
