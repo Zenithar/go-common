@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package sbox;
+
+message Key {
+  bytes public_key = 1;
+  bytes nonce = 2;
+  bytes box_key = 3;
+}
+
+message Box {
+  repeated Key keys = 1;
+  Payload payload = 2;
+}
+
+message Payload {
+  bytes nonce = 1;
+  bytes data = 2;
+}
