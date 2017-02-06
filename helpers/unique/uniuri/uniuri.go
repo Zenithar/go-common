@@ -1,6 +1,6 @@
 package uniuri
 
-import "stablelib.com/v1/uniuri"
+import "github.com/dchest/uniuri"
 
 type UniURI struct {
 }
