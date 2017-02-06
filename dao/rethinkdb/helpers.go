@@ -3,7 +3,7 @@ package rethinkdb
 import (
 	"strings"
 
-	r "gopkg.in/dancannon/gorethink.v2"
+	r "gopkg.in/gorethink/gorethink.v3"
 
 	"zenithar.org/go/common/dao/api"
 )
