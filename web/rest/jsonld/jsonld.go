@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"net/http"
 
-	"zenithar.org/go/common/dao/api"
-	"zenithar.org/go/common/web/utils"
+	"go.zenithar.org/common/dao/api"
+	"go.zenithar.org/common/web/utils"
 )
 
 // Resource represents the JSON-LD header
