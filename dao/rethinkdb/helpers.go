@@ -5,7 +5,7 @@ import (
 
 	r "gopkg.in/gorethink/gorethink.v3"
 
-	"zenithar.org/go/common/dao/api"
+	"go.zenithar.org/common/dao/api"
 )
 
 // ConvertSortParameters to rethinkdb query string

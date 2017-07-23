@@ -3,7 +3,7 @@ package rethinkdb
 import (
 	r "gopkg.in/gorethink/gorethink.v3"
 
-	"zenithar.org/go/common/dao/api"
+	"go.zenithar.org/common/dao/api"
 )
 
 // Default contains the basic implementation of the EntityCRUD interface

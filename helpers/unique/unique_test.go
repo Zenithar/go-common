@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"testing"
 
-	"zenithar.org/go/common/helpers/unique/snowflake"
-	"zenithar.org/go/common/helpers/unique/uniuri"
-	"zenithar.org/go/common/helpers/unique/uuid"
+	"go.zenithar.org/common/helpers/unique/snowflake"
+	"go.zenithar.org/common/helpers/unique/uniuri"
+	"go.zenithar.org/common/helpers/unique/uuid"
 )
 
 func TestGenerateID(t *testing.T) {
